@@ -56,7 +56,7 @@ contracts/          SatyaCelo.sol, SatyaRegistry.sol, SatyaHumanSBT + Foundry-Te
 web/                Weboberfläche (Deutsch)
 demo/               Demo-CA, lokale Chain, Korpus mit 22 Fällen, Auswertung
 tests/              pytest inkl. Eigenschaftstests (hypothesis)
-docs/               Konzept (MD/PDF), Architekturdiagramm, Recherche-Notizen
+docs/               Konzept (MD/PDF), Architekturdiagramm
 ```
 
 ## Schnellstart
