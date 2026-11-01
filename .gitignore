@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.hypothesis/
+node_modules/
+.next/
+.env
+.env.local
+*.key
+anvil-state.json
+celo_state.json
+satya/contracts/out/
+satya/contracts/cache/
+satya-agent/contracts/out/
+satya-agent/contracts/cache/
+satya-agent/contracts/broadcast/

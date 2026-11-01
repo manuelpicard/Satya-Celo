@@ -1,0 +1,35 @@
+flowchart LR
+    IN["Inhalt<br/>(Bild, Video, Audio, PDF, Text)"] --> ENG["Satya-Engine"]
+
+    subgraph M["Prüfmodule"]
+        C2["C2PA-Prüfung<br/>gegen offizielle Trust List"]
+        SG["Satya-Siegel<br/>(EIP-712, im Text eingebettet)"]
+        RG["Herkunftsregister<br/>SatyaRegistry (on-chain)"]
+        MD["Metadaten<br/>EXIF · XMP · IPTC · PNG"]
+        WM["Offene Wasserzeichen<br/>+ Anbieter-Plugins"]
+        SIM["Ähnlichkeit<br/>pHash · SimHash"]
+    end
+    ENG --> C2 & SG & RG & MD & WM & SIM
+
+    HMN["Schicht 1: HMN<br/>Soulbound Human Credential"] -. "isHuman / personId<br/>Sperre bei Betrug" .-> RG
+    HMN -.-> SG
+    TL["C2PA-Vertrauensliste<br/>(OpenAI, Google, Kameras …)"] -.-> C2
+    KA["Registrierte KI-Anbieter"] -. "attestAI(hash)" .-> RG
+
+    C2 --> B["BEWEIS<br/>haftbare, kryptografisch<br/>prüfbare Erklärung"]
+    SG --> B
+    RG --> B
+    C2 --> I["INDIZ<br/>fälschbar oder fehleranfällig"]
+    SG --> I
+    MD --> I
+    WM --> I
+    SIM --> I
+
+    B --> V{"Urteilslogik<br/>(reine Funktion)"}
+    I -. "wird angezeigt,<br/>entscheidet nie" .-> V
+    V --> R1["KI_NACHGEWIESEN"]
+    V --> R2["MENSCH_BEZEUGT"]
+    V --> R3["KAMERA_NACHGEWIESEN"]
+    V --> R4["WIDERSPRUCH"]
+    V --> R5["HERKUNFT_GEBROCHEN"]
+    V --> R6["UNBESTIMMT"]

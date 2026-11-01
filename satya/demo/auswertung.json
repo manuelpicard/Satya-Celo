@@ -1,0 +1,763 @@
+{
+  "phase1": {
+    "zeilen": [
+      {
+        "datei": "01_bild_ki_openai_original.png",
+        "wahrheit": "ki",
+        "beschreibung": "Echtes Bild aus gpt-image (OpenAI), unverändert mit C2PA",
+        "erwartet": "KI_NACHGEWIESEN",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "C2PA: KI-Erzeugung deklariert",
+          "Register: KI-Anbieter hat diesen Inhalt registriert"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "KI-Anbieter „Demo-KI-Anbieter“",
+          "OpenAI OpCo, LLC (OpenAI Media Service)"
+        ]
+      },
+      {
+        "datei": "02_bild_ki_google_original.png",
+        "wahrheit": "ki",
+        "beschreibung": "Echtes Bild aus Nano Banana 2 (Google), unverändert mit C2PA",
+        "erwartet": "KI_NACHGEWIESEN",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "C2PA: KI-Erzeugung deklariert"
+        ],
+        "indizien": [
+          "XMP/IPTC: KI-Quelltyp eingetragen"
+        ],
+        "aussteller": [
+          "Google LLC (Google Media Processing Services)"
+        ]
+      },
+      {
+        "datei": "03_bild_ki_openai_reencodiert.jpg",
+        "wahrheit": "ki",
+        "beschreibung": "OpenAI-Bild als JPEG neu gespeichert (Metadaten weg, wie nach Upload/Screenshot); Anbieter hat das Original im Register hinterlegt",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [],
+        "indizien": [
+          "Ähnlicher Inhalt im Register"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "04_bild_ki_google_manipuliert.png",
+        "wahrheit": "ki",
+        "beschreibung": "Google-Bild, nach der Signatur ein Byte der Bilddaten verändert",
+        "erwartet": "HERKUNFT_GEBROCHEN",
+        "urteil": "HERKUNFT_GEBROCHEN",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [
+          "Inhalt passt nicht zur C2PA-Signatur"
+        ],
+        "indizien": [
+          "Ursprünglich als KI-Inhalt signiert"
+        ],
+        "aussteller": [
+          "Google LLC (Google Media Processing Services)"
+        ]
+      },
+      {
+        "datei": "05_bild_ki_google_screenshot.png",
+        "wahrheit": "ki",
+        "beschreibung": "Google-Bild verkleinert und ohne Metadaten neu gespeichert",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "06_foto_kamera_signiert.jpg",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto, von (Demo-)Kamera mit C2PA signiert: digitalCapture",
+        "erwartet": "KAMERA_NACHGEWIESEN",
+        "urteil": "KAMERA_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "mensch",
+        "beweise": [
+          "C2PA: signierte Geräte-Aufnahme"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "Satya DEMO (Satya DEMO Kamera) [DEMO-Vertrauensanker]"
+        ]
+      },
+      {
+        "datei": "07_foto_unsigniert.jpg",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto ohne jeden Nachweis",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "08_foto_gefaelschte_ki_signatur.jpg",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto, Fälscher signiert mit eigener CA als „OpenAI OpCo, LLC“: trainedAlgorithmicMedia",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [],
+        "indizien": [
+          "C2PA: KI-Erzeugung deklariert"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "09_foto_mit_sd_wasserzeichen.png",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto, nachträglich das öffentliche Stable-Diffusion-XL-Wasserzeichen eingebettet",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [],
+        "indizien": [
+          "Offenes Wasserzeichen: Stable Diffusion XL"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "10_foto_gefaelschte_sd_parameter.png",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto mit nachträglich eingefügten Stable-Diffusion-Parametern",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [],
+        "indizien": [
+          "Generierungsparameter im Bild (A1111/Forge/SD.Next)"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "11_foto_mensch_bezeugt.jpg",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto, Alice (verifizierter Mensch) hat es im Register als „ohne KI“ bezeugt",
+        "erwartet": "MENSCH_BEZEUGT",
+        "urteil": "MENSCH_BEZEUGT",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "mensch",
+        "beweise": [
+          "Register: verifizierter Mensch bezeugt „ohne KI“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0xd4c553a3… (Level 2, Wallet 0x3C44CdDd…)"
+        ]
+      },
+      {
+        "datei": "12_text_kafka_versiegelt.txt",
+        "wahrheit": "mensch",
+        "beschreibung": "Kafka (1915), von Alice mit eingebettetem Siegel „ohne KI“ versehen",
+        "erwartet": "MENSCH_BEZEUGT",
+        "urteil": "MENSCH_BEZEUGT",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "mensch",
+        "beweise": [
+          "Siegel eines verifizierten Menschen: „ohne KI erstellt“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0xd4c553a3… (Level 2, Wallet 0x3C44CdDd…)"
+        ]
+      },
+      {
+        "datei": "13_text_kafka_versiegelt_veraendert.txt",
+        "wahrheit": "mensch",
+        "beschreibung": "Wie 12, danach ein Wort geändert",
+        "erwartet": "HERKUNFT_GEBROCHEN",
+        "urteil": "HERKUNFT_GEBROCHEN",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [
+          "Inhalt wurde nach dem Versiegeln verändert"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "Wallet 0x3C44CdDd…"
+        ]
+      },
+      {
+        "datei": "14_text_goethe_registriert.txt",
+        "wahrheit": "mensch",
+        "beschreibung": "Goethe, Faust I: Alice hat ihn im Register als „ohne KI“ verankert",
+        "erwartet": "MENSCH_BEZEUGT",
+        "urteil": "MENSCH_BEZEUGT",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "mensch",
+        "beweise": [
+          "Register: verifizierter Mensch bezeugt „ohne KI“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0xd4c553a3… (Level 2, Wallet 0x3C44CdDd…)"
+        ]
+      },
+      {
+        "datei": "15_text_grimm_ohne_nachweis.txt",
+        "wahrheit": "mensch",
+        "beschreibung": "Brüder Grimm, ohne jeden Nachweis",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "16_text_ki_bienen_registriert.txt",
+        "wahrheit": "ki",
+        "beschreibung": "Echter KI-Text (gpt-5-mini), vom Anbieter im Register hinterlegt",
+        "erwartet": "KI_NACHGEWIESEN",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "Register: KI-Anbieter hat diesen Inhalt registriert"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "KI-Anbieter „Demo-KI-Anbieter“"
+        ]
+      },
+      {
+        "datei": "17_text_ki_bienen_paraphrasiert.txt",
+        "wahrheit": "ki",
+        "beschreibung": "Text 16 von einer KI leicht umformuliert",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "18_text_ki_fahrrad_ohne_nachweis.txt",
+        "wahrheit": "ki",
+        "beschreibung": "Echter KI-Text ohne jeden Nachweis",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "19_text_ki_herbst_agent_siegel.txt",
+        "wahrheit": "ki",
+        "beschreibung": "KI-Text, ein KI-Agent (ohne HMN-Credential) versiegelt ihn als „ohne KI“",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "mensch",
+        "beweise": [],
+        "indizien": [
+          "Signiert, aber nicht von einem verifizierten Menschen"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "20_text_ki_tempolimit_widerspruch.txt",
+        "wahrheit": "ki",
+        "beschreibung": "KI-Text vom Anbieter registriert; Mallory (verifiziert) verankert trotzdem „ohne KI“",
+        "erwartet": "WIDERSPRUCH",
+        "urteil": "WIDERSPRUCH",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [
+          "Register: KI-Anbieter hat diesen Inhalt registriert",
+          "Register: verifizierter Mensch bezeugt „ohne KI“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0x8cc6dfb7… (Level 2, Wallet 0x90F79bf6…)",
+          "KI-Anbieter „Demo-KI-Anbieter“"
+        ]
+      },
+      {
+        "datei": "21_text_ki_unterstuetzt_alice.txt",
+        "wahrheit": "ki",
+        "beschreibung": "KI-Entwurf, von Alice überarbeitet und ehrlich als „mit KI-Unterstützung“ versiegelt",
+        "erwartet": "KI_NACHGEWIESEN",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "Siegel eines verifizierten Menschen: „mit KI-Unterstützung erstellt“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0xd4c553a3… (Level 2, Wallet 0x3C44CdDd…)"
+        ]
+      },
+      {
+        "datei": "22_text_ki_mallory_luege.txt",
+        "wahrheit": "ki",
+        "beschreibung": "KI-Text, Mallory (verifiziert) versiegelt ihn wahrheitswidrig als „ohne KI“ (unentdeckte Lüge)",
+        "erwartet": "MENSCH_BEZEUGT (falsch, Restrisiko)",
+        "urteil": "MENSCH_BEZEUGT",
+        "sicher": true,
+        "korrekt": false,
+        "naiv": "mensch",
+        "beweise": [
+          "Siegel eines verifizierten Menschen: „ohne KI erstellt“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0x8cc6dfb7… (Level 2, Wallet 0x90F79bf6…)"
+        ]
+      }
+    ],
+    "statistik": {
+      "n": 22,
+      "sicher": 9,
+      "sicher_korrekt": 8,
+      "sicher_falsch": 1,
+      "abdeckung": 0.4090909090909091,
+      "urteile": {
+        "KI_NACHGEWIESEN": 4,
+        "UNBESTIMMT": 10,
+        "HERKUNFT_GEBROCHEN": 2,
+        "KAMERA_NACHGEWIESEN": 1,
+        "MENSCH_BEZEUGT": 4,
+        "WIDERSPRUCH": 1
+      },
+      "naiv_antworten": 16,
+      "naiv_falsch": 5,
+      "naiv_falsche_ki_beschuldigung": 3,
+      "falsch_sicher": [
+        "22_text_ki_mallory_luege.txt"
+      ],
+      "naiv_falsch_dateien": [
+        "08_foto_gefaelschte_ki_signatur.jpg",
+        "09_foto_mit_sd_wasserzeichen.png",
+        "10_foto_gefaelschte_sd_parameter.png",
+        "19_text_ki_herbst_agent_siegel.txt",
+        "22_text_ki_mallory_luege.txt"
+      ]
+    }
+  },
+  "phase2": {
+    "zeilen": [
+      {
+        "datei": "01_bild_ki_openai_original.png",
+        "wahrheit": "ki",
+        "beschreibung": "Echtes Bild aus gpt-image (OpenAI), unverändert mit C2PA",
+        "erwartet": "KI_NACHGEWIESEN",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "C2PA: KI-Erzeugung deklariert",
+          "Register: KI-Anbieter hat diesen Inhalt registriert"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "KI-Anbieter „Demo-KI-Anbieter“",
+          "OpenAI OpCo, LLC (OpenAI Media Service)"
+        ]
+      },
+      {
+        "datei": "02_bild_ki_google_original.png",
+        "wahrheit": "ki",
+        "beschreibung": "Echtes Bild aus Nano Banana 2 (Google), unverändert mit C2PA",
+        "erwartet": "KI_NACHGEWIESEN",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "C2PA: KI-Erzeugung deklariert"
+        ],
+        "indizien": [
+          "XMP/IPTC: KI-Quelltyp eingetragen"
+        ],
+        "aussteller": [
+          "Google LLC (Google Media Processing Services)"
+        ]
+      },
+      {
+        "datei": "03_bild_ki_openai_reencodiert.jpg",
+        "wahrheit": "ki",
+        "beschreibung": "OpenAI-Bild als JPEG neu gespeichert (Metadaten weg, wie nach Upload/Screenshot); Anbieter hat das Original im Register hinterlegt",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [],
+        "indizien": [
+          "Ähnlicher Inhalt im Register"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "04_bild_ki_google_manipuliert.png",
+        "wahrheit": "ki",
+        "beschreibung": "Google-Bild, nach der Signatur ein Byte der Bilddaten verändert",
+        "erwartet": "HERKUNFT_GEBROCHEN",
+        "urteil": "HERKUNFT_GEBROCHEN",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [
+          "Inhalt passt nicht zur C2PA-Signatur"
+        ],
+        "indizien": [
+          "Ursprünglich als KI-Inhalt signiert"
+        ],
+        "aussteller": [
+          "Google LLC (Google Media Processing Services)"
+        ]
+      },
+      {
+        "datei": "05_bild_ki_google_screenshot.png",
+        "wahrheit": "ki",
+        "beschreibung": "Google-Bild verkleinert und ohne Metadaten neu gespeichert",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "06_foto_kamera_signiert.jpg",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto, von (Demo-)Kamera mit C2PA signiert: digitalCapture",
+        "erwartet": "KAMERA_NACHGEWIESEN",
+        "urteil": "KAMERA_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "mensch",
+        "beweise": [
+          "C2PA: signierte Geräte-Aufnahme"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "Satya DEMO (Satya DEMO Kamera) [DEMO-Vertrauensanker]"
+        ]
+      },
+      {
+        "datei": "07_foto_unsigniert.jpg",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto ohne jeden Nachweis",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "08_foto_gefaelschte_ki_signatur.jpg",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto, Fälscher signiert mit eigener CA als „OpenAI OpCo, LLC“: trainedAlgorithmicMedia",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [],
+        "indizien": [
+          "C2PA: KI-Erzeugung deklariert"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "09_foto_mit_sd_wasserzeichen.png",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto, nachträglich das öffentliche Stable-Diffusion-XL-Wasserzeichen eingebettet",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [],
+        "indizien": [
+          "Offenes Wasserzeichen: Stable Diffusion XL"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "10_foto_gefaelschte_sd_parameter.png",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto mit nachträglich eingefügten Stable-Diffusion-Parametern",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "ki",
+        "beweise": [],
+        "indizien": [
+          "Generierungsparameter im Bild (A1111/Forge/SD.Next)"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "11_foto_mensch_bezeugt.jpg",
+        "wahrheit": "mensch",
+        "beschreibung": "Echtes Foto, Alice (verifizierter Mensch) hat es im Register als „ohne KI“ bezeugt",
+        "erwartet": "MENSCH_BEZEUGT",
+        "urteil": "MENSCH_BEZEUGT",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "mensch",
+        "beweise": [
+          "Register: verifizierter Mensch bezeugt „ohne KI“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0xd4c553a3… (Level 2, Wallet 0x3C44CdDd…)"
+        ]
+      },
+      {
+        "datei": "12_text_kafka_versiegelt.txt",
+        "wahrheit": "mensch",
+        "beschreibung": "Kafka (1915), von Alice mit eingebettetem Siegel „ohne KI“ versehen",
+        "erwartet": "MENSCH_BEZEUGT",
+        "urteil": "MENSCH_BEZEUGT",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "mensch",
+        "beweise": [
+          "Siegel eines verifizierten Menschen: „ohne KI erstellt“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0xd4c553a3… (Level 2, Wallet 0x3C44CdDd…)"
+        ]
+      },
+      {
+        "datei": "13_text_kafka_versiegelt_veraendert.txt",
+        "wahrheit": "mensch",
+        "beschreibung": "Wie 12, danach ein Wort geändert",
+        "erwartet": "HERKUNFT_GEBROCHEN",
+        "urteil": "HERKUNFT_GEBROCHEN",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [
+          "Inhalt wurde nach dem Versiegeln verändert"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "Wallet 0x3C44CdDd…"
+        ]
+      },
+      {
+        "datei": "14_text_goethe_registriert.txt",
+        "wahrheit": "mensch",
+        "beschreibung": "Goethe, Faust I: Alice hat ihn im Register als „ohne KI“ verankert",
+        "erwartet": "MENSCH_BEZEUGT",
+        "urteil": "MENSCH_BEZEUGT",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "mensch",
+        "beweise": [
+          "Register: verifizierter Mensch bezeugt „ohne KI“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0xd4c553a3… (Level 2, Wallet 0x3C44CdDd…)"
+        ]
+      },
+      {
+        "datei": "15_text_grimm_ohne_nachweis.txt",
+        "wahrheit": "mensch",
+        "beschreibung": "Brüder Grimm, ohne jeden Nachweis",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "16_text_ki_bienen_registriert.txt",
+        "wahrheit": "ki",
+        "beschreibung": "Echter KI-Text (gpt-5-mini), vom Anbieter im Register hinterlegt",
+        "erwartet": "KI_NACHGEWIESEN",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "Register: KI-Anbieter hat diesen Inhalt registriert"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "KI-Anbieter „Demo-KI-Anbieter“"
+        ]
+      },
+      {
+        "datei": "17_text_ki_bienen_paraphrasiert.txt",
+        "wahrheit": "ki",
+        "beschreibung": "Text 16 von einer KI leicht umformuliert",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "18_text_ki_fahrrad_ohne_nachweis.txt",
+        "wahrheit": "ki",
+        "beschreibung": "Echter KI-Text ohne jeden Nachweis",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "keine Aussage",
+        "beweise": [],
+        "indizien": [],
+        "aussteller": []
+      },
+      {
+        "datei": "19_text_ki_herbst_agent_siegel.txt",
+        "wahrheit": "ki",
+        "beschreibung": "KI-Text, ein KI-Agent (ohne HMN-Credential) versiegelt ihn als „ohne KI“",
+        "erwartet": "UNBESTIMMT",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "mensch",
+        "beweise": [],
+        "indizien": [
+          "Signiert, aber nicht von einem verifizierten Menschen"
+        ],
+        "aussteller": []
+      },
+      {
+        "datei": "20_text_ki_tempolimit_widerspruch.txt",
+        "wahrheit": "ki",
+        "beschreibung": "KI-Text vom Anbieter registriert; Mallory (verifiziert) verankert trotzdem „ohne KI“",
+        "erwartet": "WIDERSPRUCH",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "Register: KI-Anbieter hat diesen Inhalt registriert"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "KI-Anbieter „Demo-KI-Anbieter“"
+        ]
+      },
+      {
+        "datei": "21_text_ki_unterstuetzt_alice.txt",
+        "wahrheit": "ki",
+        "beschreibung": "KI-Entwurf, von Alice überarbeitet und ehrlich als „mit KI-Unterstützung“ versiegelt",
+        "erwartet": "KI_NACHGEWIESEN",
+        "urteil": "KI_NACHGEWIESEN",
+        "sicher": true,
+        "korrekt": true,
+        "naiv": "ki",
+        "beweise": [
+          "Siegel eines verifizierten Menschen: „mit KI-Unterstützung erstellt“"
+        ],
+        "indizien": [],
+        "aussteller": [
+          "HMN-Person 0xd4c553a3… (Level 2, Wallet 0x3C44CdDd…)"
+        ]
+      },
+      {
+        "datei": "22_text_ki_mallory_luege.txt",
+        "wahrheit": "ki",
+        "beschreibung": "KI-Text, Mallory (verifiziert) versiegelt ihn wahrheitswidrig als „ohne KI“ (unentdeckte Lüge)",
+        "erwartet": "MENSCH_BEZEUGT (falsch, Restrisiko)",
+        "urteil": "UNBESTIMMT",
+        "sicher": false,
+        "korrekt": null,
+        "naiv": "mensch",
+        "beweise": [],
+        "indizien": [
+          "Signiert, aber nicht von einem verifizierten Menschen"
+        ],
+        "aussteller": []
+      }
+    ],
+    "statistik": {
+      "n": 22,
+      "sicher": 9,
+      "sicher_korrekt": 9,
+      "sicher_falsch": 0,
+      "abdeckung": 0.4090909090909091,
+      "urteile": {
+        "KI_NACHGEWIESEN": 5,
+        "UNBESTIMMT": 11,
+        "HERKUNFT_GEBROCHEN": 2,
+        "KAMERA_NACHGEWIESEN": 1,
+        "MENSCH_BEZEUGT": 3
+      },
+      "naiv_antworten": 16,
+      "naiv_falsch": 5,
+      "naiv_falsche_ki_beschuldigung": 3,
+      "falsch_sicher": [],
+      "naiv_falsch_dateien": [
+        "08_foto_gefaelschte_ki_signatur.jpg",
+        "09_foto_mit_sd_wasserzeichen.png",
+        "10_foto_gefaelschte_sd_parameter.png",
+        "19_text_ki_herbst_agent_siegel.txt",
+        "22_text_ki_mallory_luege.txt"
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+__pycache__/
+.pytest_cache/
+.hypothesis/
+contracts/out/
+contracts/cache/
+demo/anvil-state.json

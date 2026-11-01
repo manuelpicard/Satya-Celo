@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satya – Herkunft prüfen statt raten</title>
+<style>
+  :root{
+    --ink:#101828; --muted:#475467; --line:#e4e7ec; --bg:#f8f9fb; --card:#fff; --accent:#1d2939;
+    --ki:#b42318; --ki-bg:#fef3f2; --mensch:#067647; --mensch-bg:#ecfdf3; --kamera:#175cd3; --kamera-bg:#eff8ff;
+    --wider:#6941c6; --wider-bg:#f4f3ff; --bruch:#b54708; --bruch-bg:#fffaeb; --unb:#475467; --unb-bg:#f2f4f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  header{background:var(--accent);color:#fff;padding:28px 24px 26px}
+  header .wrap{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:24px;align-items:flex-end;flex-wrap:wrap}
+  h1{margin:0;font-size:28px;letter-spacing:.2px}
+  h1 small{display:block;font-size:15px;font-weight:400;opacity:.8;margin-top:4px}
+  .pill{display:inline-block;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 10px;font-size:12.5px;margin-left:6px;opacity:.9}
+  main{max-width:1180px;margin:0 auto;padding:24px;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:24px}
+  @media (max-width:900px){main{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  h2{font-size:17px;margin:0 0 12px}
+  .tabs{display:flex;gap:6px;margin-bottom:14px}
+  .tab{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;color:var(--muted)}
+  .tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .drop{display:block;border:2px dashed #cfd4dc;border-radius:12px;padding:30px;text-align:center;color:var(--muted);cursor:pointer;transition:.15s}
+  .drop.over{border-color:var(--kamera);background:var(--kamera-bg)}
+  textarea{width:100%;min-height:170px;border:1px solid var(--line);border-radius:10px;padding:12px;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  button.primary{background:var(--accent);color:#fff;border:0;border-radius:9px;padding:10px 16px;font-weight:600;cursor:pointer}
+  button.ghost{background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 12px;cursor:pointer;font-size:13.5px}
+  button:disabled{opacity:.5;cursor:wait}
+  select{border:1px solid var(--line);border-radius:8px;padding:8px}
+  .verdict{border-radius:12px;padding:18px 18px 14px;margin-top:18px;border:1px solid}
+  .verdict .code{font:700 12px/1 ui-monospace,monospace;letter-spacing:.6px;opacity:.85}
+  .verdict .head{font-size:21px;font-weight:700;margin:6px 0 6px}
+  .verdict .sure{display:inline-block;font-size:12.5px;font-weight:700;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+  .v-KI_NACHGEWIESEN{background:var(--ki-bg);border-color:#fecdca;color:var(--ki)}
+  .v-MENSCH_BEZEUGT{background:var(--mensch-bg);border-color:#abefc6;color:var(--mensch)}
+  .v-KAMERA_NACHGEWIESEN{background:var(--kamera-bg);border-color:#b2ddff;color:var(--kamera)}
+  .v-WIDERSPRUCH{background:var(--wider-bg);border-color:#d9d6fe;color:var(--wider)}
+  .v-HERKUNFT_GEBROCHEN{background:var(--bruch-bg);border-color:#fedf89;color:var(--bruch)}
+  .v-UNBESTIMMT{background:var(--unb-bg);border-color:#d0d5dd;color:var(--unb)}
+  .verdict p{color:var(--ink);margin:4px 0 0}
+  .sec{margin-top:16px}
+  .sec h3{font-size:13px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 8px}
+  .ev{border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:10px 12px;margin-bottom:8px;background:#fff}
+  .ev.beweis{border-left-color:var(--mensch)} .ev.indiz{border-left-color:#f79009} .ev.info{border-left-color:#98a2b3}
+  .ev .t{font-weight:650} .ev .src{font:600 11px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;margin-right:6px}
+  .ev .iss{font-size:13px;color:var(--muted);margin-top:2px} .ev .d{font-size:14px;margin-top:4px;color:#344054}
+  .meta{font:12.5px ui-monospace,monospace;color:var(--muted);word-break:break-all;margin-top:12px}
+  .limits{font-size:13.5px;color:var(--muted);background:#f9fafb;border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:16px}
+  .ex{display:flex;gap:10px;align-items:flex-start;padding:9px 6px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:8px}
+  .ex:hover{background:#f9fafb}
+  .ex img{width:46px;height:46px;object-fit:cover;border-radius:6px;border:1px solid var(--line);flex:none}
+  .ex .ico{width:46px;height:46px;border-radius:6px;background:#f2f4f7;display:flex;align-items:center;justify-content:center;font:700 12px monospace;color:var(--muted);flex:none}
+  .ex .n{font:600 12.5px ui-monospace,monospace} .ex .b{font-size:13px;color:var(--muted)}
+  .truth{margin-top:12px;font-size:14px;border-radius:10px;padding:10px 12px;background:#fff;border:1px dashed #98a2b3;color:var(--ink)}
+  .tiers div{margin-bottom:10px} .tiers b{display:inline-block;min-width:78px}
+  .status{font-size:13px;color:var(--muted)} .status b{color:var(--ink)}
+  .preview{max-width:100%;max-height:260px;border-radius:10px;border:1px solid var(--line);margin-top:12px;display:none}
+  pre.textprev{white-space:pre-wrap;background:#f9fafb;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px;max-height:220px;overflow:auto;display:none;margin-top:14px}
+  footer{max-width:1180px;margin:0 auto;padding:0 24px 30px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div><h1>Satya <small>Herkunft prüfen statt raten · Register auf Celo</small></h1></div>
+  <div><span class="pill">Nur Beweise entscheiden</span><span class="pill">Kein Stil-Raten</span><span class="pill">C2PA · HMN · Register</span></div>
+</div></header>
+
+<main>
+  <section>
+    <div class="card">
+      <h2>Inhalt prüfen</h2>
+      <div class="tabs"><button class="tab active" data-tab="datei">Datei</button><button class="tab" data-tab="text">Text</button></div>
+      <div id="pane-datei">
+        <label class="drop" id="drop"><input type="file" id="file" hidden>
+          <div style="font-size:16px;font-weight:600;color:var(--ink)">Datei hierher ziehen oder klicken</div>
+          <div>Bilder, Videos, Audio, PDF (bis 50 MB). Prüft C2PA-Signaturen, Register, Metadaten und offene Wasserzeichen.</div>
+        </label>
+      </div>
+      <div id="pane-text" style="display:none">
+        <textarea id="text" placeholder="Text einfügen, auch mit eingebettetem Satya-Siegel …"></textarea>
+        <div class="row">
+          <button class="primary" id="checkText">Text prüfen</button>
+          <span id="demoSeal" style="display:none" class="row">
+            <select id="sealWho"><option value="alice">als Alice (verifizierter Mensch)</option><option value="mallory">als Mallory (verifiziert)</option><option value="agent">als KI-Agent (ohne Credential)</option></select>
+            <select id="sealKi"><option value="0">„ohne KI“</option><option value="1">„mit KI-Unterstützung“</option><option value="2">„KI-generiert“</option></select>
+            <button class="ghost" id="sealBtn">Demo-Siegel anbringen</button>
+          </span>
+        </div>
+      </div>
+      <img id="preview" class="preview" alt="Vorschau">
+      <pre id="textprev" class="textprev"></pre>
+      <div id="result"></div>
+    </div>
+  </section>
+
+  <aside>
+    <div class="card">
+      <h2>So urteilt Satya</h2>
+      <div class="tiers">
+        <div><b style="color:var(--mensch)">Beweis</b> Kryptografisch prüfbare Erklärung einer haftbaren Stelle: vertrauenswürdige C2PA-Signatur, verifizierter Mensch (HMN), registrierter KI-Anbieter. Nur Beweise führen zu einem sicheren Urteil.</div>
+        <div><b style="color:#b54708">Indiz</b> Unsignierte Metadaten, offene Wasserzeichen, Ähnlichkeit. Wird angezeigt, entscheidet aber nie, weil es fälschbar oder fehleranfällig ist.</div>
+        <div><b style="color:var(--unb)">Unbestimmt</b> Ohne Nachweis kann niemand sicher sagen, ob KI beteiligt war. Satya sagt das offen, statt zu raten.</div>
+      </div>
+      <div class="status" id="status">Status wird geladen …</div>
+    </div>
+    <div class="card" style="margin-top:20px;display:none" id="celoCard">
+      <h2>Register auf Celo</h2>
+      <div class="status" id="celoStatus">Lade …</div>
+      <div id="celoChain"></div>
+    </div>
+    <div class="card" style="margin-top:20px" id="exCard">
+      <h2>Testkorpus (22 Fälle mit bekannter Wahrheit)</h2>
+      <div id="examples" class="status">Lade …</div>
+    </div>
+  </aside>
+</main>
+<footer>Satya ist ein Prototyp. Die lokale Demo-Chain, die Demo-CA und die Demo-Schlüssel sind ausschließlich für Vorführzwecke bestimmt.</footer>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const TRUTH = {ki:"KI beteiligt", mensch:"von Menschen erstellt"};
+
+document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
+  document.querySelectorAll(".tab").forEach(x => x.classList.toggle("active", x === t));
+  $("#pane-datei").style.display = t.dataset.tab === "datei" ? "" : "none";
+  $("#pane-text").style.display = t.dataset.tab === "text" ? "" : "none";
+});
+
+function evHtml(e){
+  return `<div class="ev ${e.tier}"><div><span class="src">${esc(e.source)}</span><span class="t">${esc(e.title)}</span></div>`+
+    (e.issuer ? `<div class="iss">Aussteller: ${esc(e.issuer)}</div>` : "") + `<div class="d">${esc(e.detail)}</div></div>`;
+}
+function render(r){
+  const sec = (title, list) => list.length ? `<div class="sec"><h3>${title}</h3>${list.map(evHtml).join("")}</div>` : "";
+  let truth = "";
+  if (r.beispiel){
+    const b = r.beispiel;
+    truth = `<div class="truth"><b>Wahrheit (Satya unbekannt):</b> ${TRUTH[b.wahrheit]} · ${esc(b.beschreibung)}<br><b>Erwartet:</b> ${esc(b.erwartet)}</div>`;
+  }
+  $("#result").innerHTML = `<div class="verdict v-${r.urteil}"><div class="code">${r.urteil}</div>
+      <div class="head">${esc(r.ueberschrift)}</div>
+      <span class="sure" style="background:${r.sicher?'#fff':'transparent'};border:1px solid currentColor">${r.sicher ? "Sicheres Urteil" : "Kein sicheres Urteil"}</span>
+      <p>${esc(r.erklaerung)}</p></div>${truth}
+    ${sec("Beweise", r.beweise)}${sec("Indizien – kein Beweis", r.indizien)}${sec("Hinweise", r.hinweise)}
+    <div class="meta">${esc(r.inhalt.art)} · ${esc(r.inhalt.mime || "")} SHA-256 ${esc(r.inhalt.sha256)}${r.inhalt.fingerabdruck ? " · Fingerabdruck " + esc(r.inhalt.fingerabdruck) : ""}</div>
+    <div class="limits"><b>Grenzen:</b> ${esc(r.grenzen)}</div>`;
+  celoFor(r.inhalt && r.inhalt.sha256);
+}
+
+// ---- Celo: who has gone on record for this exact content ------------------
+let CELO = null;
+const ORIGIN_DE = {HUMAN_ONLY:"Nur Mensch", HUMAN_WITH_AI:"Mensch mit KI-Hilfe", AI_GENERATED:"Von KI erzeugt"};
+const VIA_DE = {SELF_HUMAN:"verifizierter Mensch (Self)", SELF_AGENT:"Agent eines verifizierten Menschen", AGENT_8004:"ERC-8004-Agent"};
+
+async function celoFor(hash){
+  const box = $("#celoChain");
+  if (!CELO || !hash) { if (box) box.innerHTML = ""; return; }
+  const h = hash.startsWith("0x") ? hash : "0x" + hash;
+  box.innerHTML = `<p class="status">Frage Register …</p>`;
+  let j;
+  try { const r = await fetch("api/celo/herkunft/" + h); if (!r.ok) throw 0; j = await r.json(); }
+  catch { box.innerHTML = `<p class="status">Register nicht erreichbar.</p>`; return; }
+  if (!j.statements.length) {
+    box.innerHTML = `<p class="status">Zu diesem Inhalt hat sich niemand auf Celo erklärt. Schweigen ist kein Beweis – es heißt nur, dass niemand haftet.</p>`;
+    return;
+  }
+  const s = j.summary;
+  const rows = j.statements.map(a => {
+    const tags = (a.revoked ? ` <span class="sure">zurückgezogen</span>` : "") +
+                 (a.disputed ? ` <span class="sure" style="color:var(--ki)">widerlegt</span>` : "");
+    return `<div class="ev ${a.active ? "beweis" : "indiz"}">
+      <div><span class="src">Celo</span><span class="t">${esc(ORIGIN_DE[a.origin] || a.origin)}</span>${tags}</div>
+      <div class="iss">${esc(VIA_DE[a.via] || a.via)}${a.human ? ` · Person ${esc(a.human)}` : ""}</div>
+      <div class="d">Erklärt von ${esc(a.attester)}</div></div>`;
+  }).join("");
+  const warn = s.provenFraud
+    ? `<div class="truth" style="border-color:var(--ki)"><b>Widerspruch bewiesen:</b> Dieselbe Person hat zu diesem Inhalt zwei unvereinbare Erklärungen abgegeben. Beide sind on-chain als widerlegt markiert.</div>`
+    : s.contradiction
+      ? `<div class="truth"><b>Widerspruch:</b> Verschiedene Personen erklären diesen Inhalt unterschiedlich.</div>` : "";
+  box.innerHTML = warn + rows +
+    `<div class="meta">${j.statements.length} Erklärung(en) · ${j.distinctHumans} verifizierte Person(en) dahinter</div>`;
+}
+async function post(fd){
+  $("#result").innerHTML = `<p class="status">Prüfe …</p>`;
+  const res = await fetch("api/pruefen", {method:"POST", body:fd});
+  const j = await res.json();
+  if (!res.ok) { $("#result").innerHTML = `<p style="color:var(--ki)">${esc(j.detail || "Fehler")}</p>`; return; }
+  render(j);
+}
+function showFile(f){
+  const fd = new FormData(); fd.append("datei", f);
+  $("#textprev").style.display = "none";
+  if (f.type.startsWith("image/")) { $("#preview").src = URL.createObjectURL(f); $("#preview").style.display = "block"; }
+  else $("#preview").style.display = "none";
+  post(fd);
+}
+$("#file").onchange = e => e.target.files[0] && showFile(e.target.files[0]);
+const drop = $("#drop");
+["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => {e.preventDefault(); drop.classList.add("over")}));
+["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => {e.preventDefault(); drop.classList.remove("over")}));
+drop.addEventListener("drop", e => e.dataTransfer.files[0] && showFile(e.dataTransfer.files[0]));
+$("#checkText").onclick = () => { const fd = new FormData(); fd.append("text", $("#text").value);
+  $("#preview").style.display = "none"; $("#textprev").style.display = "none"; post(fd); };
+$("#sealBtn").onclick = async () => {
+  const fd = new FormData(); fd.append("text", $("#text").value); fd.append("wer", $("#sealWho").value); fd.append("ki", $("#sealKi").value);
+  const r = await fetch("api/demo/siegeln", {method:"POST", body:fd}); const j = await r.json();
+  if (r.ok) { $("#text").value = j.text; $("#result").innerHTML = `<p class="status">Siegel von ${esc(j.signer)} angebracht. Jetzt „Text prüfen“ – oder vorher ein Wort ändern.</p>`; }
+};
+
+async function example(name, art){
+  $("#result").innerHTML = `<p class="status">Prüfe ${esc(name)} …</p>`;
+  const r = await (await fetch("api/beispiele/" + encodeURIComponent(name))).json();
+  if (art === "bild") { $("#preview").src = "beispiel-datei/" + encodeURIComponent(name); $("#preview").style.display = "block"; $("#textprev").style.display = "none"; }
+  else { $("#preview").style.display = "none"; $("#textprev").textContent = r.beispiel.text; $("#textprev").style.display = "block"; }
+  render(r); window.scrollTo({top:0, behavior:"smooth"});
+}
+(async () => {
+  const s = await (await fetch("api/status")).json();
+  const reg = s.register || {};
+  $("#status").innerHTML = `<b>Vertrauensliste:</b> ${s.vertrauensliste.c2pa_anker} offizielle C2PA-Anker, ${s.vertrauensliste.tsa_anker} TSA-Anker` +
+    (s.vertrauensliste.demo_anker ? `, ${s.vertrauensliste.demo_anker} DEMO-Anker` : "") +
+    `<br><b>Register:</b> ${reg.rpc_verbunden ? `verbunden (Chain ${reg.chain_id}, Block ${reg.block})` : "nicht verbunden"}` +
+    `<br><b>C2PA-SDK:</b> ${esc(s.c2pa_sdk)} · Satya ${esc(s.version)}`;
+  if (s.demo_siegel) $("#demoSeal").style.display = "inline-flex";
+
+  try {
+    const c = await (await fetch("api/celo/status")).json();
+    if (c.celo && c.celo.connected) {
+      CELO = c;
+      $("#celoCard").style.display = "";
+      const x = c.x402;
+      $("#celoStatus").innerHTML =
+        `Jede Erklärung ist an eine <b>eindeutige Person</b> gebunden – über Self Agent ID, nicht über eine Wallet. ` +
+        `Wer sich widerspricht, kann von jedem widerlegt werden, ohne Betreiber.` +
+        `<br><b>Vertrag:</b> <a href="${esc(c.celo.explorer)}" target="_blank" rel="noopener">${esc(c.celo.address.slice(0,10))}…</a> · Chain ${c.celo.chainId} · Block ${c.celo.block}` +
+        (x ? `<br><b>Für Agenten:</b> ${esc(x.price)} pro Prüfung über x402 (<code>POST /api/x402/verify</code>), Abrechnung ${esc(x.settlement)}` : "");
+    }
+  } catch {}
+
+  if (!s.beispiele) { $("#exCard").style.display = "none"; return; }
+  const ex = await (await fetch("api/beispiele")).json();
+  $("#examples").innerHTML = ex.map(e => `<div class="ex" data-n="${esc(e.datei)}" data-a="${e.art}">` +
+    (e.art === "bild" ? `<img loading="lazy" src="beispiel-datei/${encodeURIComponent(e.datei)}" alt="">` : `<div class="ico">TXT</div>`) +
+    `<div><div class="n">${esc(e.datei)}</div><div class="b">${esc(e.beschreibung)}</div></div></div>`).join("");
+  document.querySelectorAll(".ex").forEach(el => el.onclick = () => example(el.dataset.n, el.dataset.a));
+})();
+</script>
+</body>
+</html>

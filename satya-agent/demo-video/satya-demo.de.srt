@@ -1,0 +1,11 @@
+1
+00:00:02,100 --> 00:00:05,930
+Bild lokal gehasht · Live-Abfrage auf Celo Sepolia
+
+2
+00:00:06,230 --> 00:00:10,280
+1 aktive Aussage im Register · keine Garantie über Herkunft
+
+3
+00:00:10,630 --> 00:00:13,490
+0,01 Test-USDC · Empfänger vor Wallet-Freigabe sichtbar

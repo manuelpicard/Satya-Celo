@@ -1,0 +1,34 @@
+flowchart TB
+  subgraph ID["1 · Identität auf Celo"]
+    direction LR
+    H["Mensch<br/>Ausweis per NFC"] -->|ZK-Nachweis| S["Self Agent ID<br/>ein Nullifier pro Mensch"]
+    A["KI-Agent"] -->|registriert sich| E["ERC-8004<br/>Identity Registry"]
+  end
+
+  subgraph SAT["2 · SatyaCelo — ownerless, kein Admin"]
+    direction LR
+    D["Herkunft erklären<br/>nur Mensch · mit KI · von KI"]
+    N["Jede Aussage trägt den Nullifier<br/>→ eine Person, eine Stimme"]
+    F["proveSelfContradiction<br/>jeder darf Lügen widerlegen"]
+    D --> N --> F
+  end
+
+  subgraph CHK["3 · Prüfdienst"]
+    direction LR
+    C["C2PA gegen<br/>offizielle Trust List"] --> V["Urteil<br/>nur Beweise sind sicher"]
+    R["Register auf Celo"] --> V
+  end
+
+  subgraph PAY["4 · Bezahlung je Anfrage"]
+    X["x402 · 0,01 USDC über EIP-3009<br/>kein Konto, kein Schlüssel, keine Rechnung"]
+  end
+
+  ID --> SAT
+  SAT --> CHK
+  CHK --> PAY
+  PAY -.->|Agent zahlt und fragt erneut| CHK
+
+  style ID fill:#eef2fb,stroke:#3b5bb5
+  style SAT fill:#eef7ee,stroke:#2d7a2d
+  style CHK fill:#f7f7f9,stroke:#555
+  style PAY fill:#fdf4e7,stroke:#b5791b

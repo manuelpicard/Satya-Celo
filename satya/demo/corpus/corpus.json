@@ -1,0 +1,134 @@
+[
+  {
+    "datei": "01_bild_ki_openai_original.png",
+    "wahrheit": "ki",
+    "beschreibung": "Echtes Bild aus gpt-image (OpenAI), unverändert mit C2PA",
+    "erwartet": "KI_NACHGEWIESEN"
+  },
+  {
+    "datei": "02_bild_ki_google_original.png",
+    "wahrheit": "ki",
+    "beschreibung": "Echtes Bild aus Nano Banana 2 (Google), unverändert mit C2PA",
+    "erwartet": "KI_NACHGEWIESEN"
+  },
+  {
+    "datei": "03_bild_ki_openai_reencodiert.jpg",
+    "wahrheit": "ki",
+    "beschreibung": "OpenAI-Bild als JPEG neu gespeichert (Metadaten weg, wie nach Upload/Screenshot); Anbieter hat das Original im Register hinterlegt",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "04_bild_ki_google_manipuliert.png",
+    "wahrheit": "ki",
+    "beschreibung": "Google-Bild, nach der Signatur ein Byte der Bilddaten verändert",
+    "erwartet": "HERKUNFT_GEBROCHEN"
+  },
+  {
+    "datei": "05_bild_ki_google_screenshot.png",
+    "wahrheit": "ki",
+    "beschreibung": "Google-Bild verkleinert und ohne Metadaten neu gespeichert",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "06_foto_kamera_signiert.jpg",
+    "wahrheit": "mensch",
+    "beschreibung": "Echtes Foto, von (Demo-)Kamera mit C2PA signiert: digitalCapture",
+    "erwartet": "KAMERA_NACHGEWIESEN"
+  },
+  {
+    "datei": "07_foto_unsigniert.jpg",
+    "wahrheit": "mensch",
+    "beschreibung": "Echtes Foto ohne jeden Nachweis",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "08_foto_gefaelschte_ki_signatur.jpg",
+    "wahrheit": "mensch",
+    "beschreibung": "Echtes Foto, Fälscher signiert mit eigener CA als „OpenAI OpCo, LLC“: trainedAlgorithmicMedia",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "09_foto_mit_sd_wasserzeichen.png",
+    "wahrheit": "mensch",
+    "beschreibung": "Echtes Foto, nachträglich das öffentliche Stable-Diffusion-XL-Wasserzeichen eingebettet",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "10_foto_gefaelschte_sd_parameter.png",
+    "wahrheit": "mensch",
+    "beschreibung": "Echtes Foto mit nachträglich eingefügten Stable-Diffusion-Parametern",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "11_foto_mensch_bezeugt.jpg",
+    "wahrheit": "mensch",
+    "beschreibung": "Echtes Foto, Alice (verifizierter Mensch) hat es im Register als „ohne KI“ bezeugt",
+    "erwartet": "MENSCH_BEZEUGT"
+  },
+  {
+    "datei": "12_text_kafka_versiegelt.txt",
+    "wahrheit": "mensch",
+    "beschreibung": "Kafka (1915), von Alice mit eingebettetem Siegel „ohne KI“ versehen",
+    "erwartet": "MENSCH_BEZEUGT"
+  },
+  {
+    "datei": "13_text_kafka_versiegelt_veraendert.txt",
+    "wahrheit": "mensch",
+    "beschreibung": "Wie 12, danach ein Wort geändert",
+    "erwartet": "HERKUNFT_GEBROCHEN"
+  },
+  {
+    "datei": "14_text_goethe_registriert.txt",
+    "wahrheit": "mensch",
+    "beschreibung": "Goethe, Faust I: Alice hat ihn im Register als „ohne KI“ verankert",
+    "erwartet": "MENSCH_BEZEUGT"
+  },
+  {
+    "datei": "15_text_grimm_ohne_nachweis.txt",
+    "wahrheit": "mensch",
+    "beschreibung": "Brüder Grimm, ohne jeden Nachweis",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "16_text_ki_bienen_registriert.txt",
+    "wahrheit": "ki",
+    "beschreibung": "Echter KI-Text (gpt-5-mini), vom Anbieter im Register hinterlegt",
+    "erwartet": "KI_NACHGEWIESEN"
+  },
+  {
+    "datei": "17_text_ki_bienen_paraphrasiert.txt",
+    "wahrheit": "ki",
+    "beschreibung": "Text 16 von einer KI leicht umformuliert",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "18_text_ki_fahrrad_ohne_nachweis.txt",
+    "wahrheit": "ki",
+    "beschreibung": "Echter KI-Text ohne jeden Nachweis",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "19_text_ki_herbst_agent_siegel.txt",
+    "wahrheit": "ki",
+    "beschreibung": "KI-Text, ein KI-Agent (ohne HMN-Credential) versiegelt ihn als „ohne KI“",
+    "erwartet": "UNBESTIMMT"
+  },
+  {
+    "datei": "20_text_ki_tempolimit_widerspruch.txt",
+    "wahrheit": "ki",
+    "beschreibung": "KI-Text vom Anbieter registriert; Mallory (verifiziert) verankert trotzdem „ohne KI“",
+    "erwartet": "WIDERSPRUCH"
+  },
+  {
+    "datei": "21_text_ki_unterstuetzt_alice.txt",
+    "wahrheit": "ki",
+    "beschreibung": "KI-Entwurf, von Alice überarbeitet und ehrlich als „mit KI-Unterstützung“ versiegelt",
+    "erwartet": "KI_NACHGEWIESEN"
+  },
+  {
+    "datei": "22_text_ki_mallory_luege.txt",
+    "wahrheit": "ki",
+    "beschreibung": "KI-Text, Mallory (verifiziert) versiegelt ihn wahrheitswidrig als „ohne KI“ (unentdeckte Lüge)",
+    "erwartet": "MENSCH_BEZEUGT (falsch, Restrisiko)"
+  }
+]
