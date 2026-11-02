@@ -25,7 +25,7 @@ Mainnet-Gegenstücke: Self Agent ID `0xaC3DF9ABf80d0F5c020C06B04Cced27763355944`
 
 ## Konten (Schlüssel in `.secrets/`, nicht im Repo)
 - Deployer / Dienst-Empfänger: (Adresse nicht veröffentlicht) (1 CELO vom Celo-Faucet)
-- Agent-Käufer (zahlt per x402): `0x13F4DC3a205102343949579Ec3c01b4F3416e663` (20 USDC vom Circle-Faucet)
+- Agent-Käufer (zahlt per x402): (Adresse nicht veröffentlicht) (20 USDC vom Circle-Faucet)
 
 ## Transaktionen
 | Aktion | Tx | Gas |

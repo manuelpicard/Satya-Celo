@@ -1,3 +1,5 @@
+> **Historischer Stand (26.–31. Oktober 2026).** Aktueller Status: siehe [`../README.md`](../README.md). Einige Punkte unten sind überholt, z. B. ist das Repository inzwischen öffentlich.
+
 # Satya – Übergabe und verbleibende Schritte
 
 ## In diesem Durchlauf erledigt

@@ -14,3 +14,4 @@ satya/contracts/cache/
 satya-agent/contracts/out/
 satya-agent/contracts/cache/
 satya-agent/contracts/broadcast/
+.secrets/
