@@ -107,7 +107,6 @@ class X402Config:
     settle_private_key: str | None = field(default=None, repr=False)
     attribution_app_code: str | None = None
     attribution_wallet_code: str | None = None
-    allow_untagged_mainnet: bool = False
 
     def __post_init__(self) -> None:
         self.asset_symbol = self.asset_symbol.upper()
@@ -167,7 +166,10 @@ class X402Config:
         mode = self.resolved_settlement_mode
         if mode == "none":
             return False
-        if self.chain_id == 42220 and mode != "tagged-relayer" and not self.allow_untagged_mainnet:
+        # Mainnet (no override switch): either our own relayer that appends ERC-8021 role tags,
+        # or the hosted Celo facilitator, which does not tag yet - there the payTo wallet is the
+        # attribution evidence the event accepts for x402. An untagged own relayer is refused.
+        if self.chain_id == 42220 and mode not in {"tagged-relayer", "hosted"}:
             return False
         if mode == "hosted":
             return bool(self.api_key)
@@ -193,7 +195,6 @@ class X402Config:
             settle_private_key=os.environ.get("X402_SETTLE_KEY") or None,
             attribution_app_code=os.environ.get("X402_ATTRIBUTION_APP_CODE") or None,
             attribution_wallet_code=os.environ.get("X402_ATTRIBUTION_WALLET_CODE") or None,
-            allow_untagged_mainnet=os.environ.get("X402_ALLOW_UNTAGGED_MAINNET", "").lower() in {"1", "true", "yes"},
         )
 
     # ------------------------------------------------------------- 402 body
@@ -344,13 +345,14 @@ class X402Gateway:
 
     def _settle_onchain(self, payment: dict[str, Any], tagged: bool) -> dict[str, Any]:
         """Submit EIP-3009 authorization; mainnet mode appends ERC-8021 Schema 2."""
+        # Policy checks first, before any import or network access: fail closed.
+        if self.config.chain_id == 42220 and not tagged:
+            raise PaymentError("mainnet settlement requires ERC-8021 role tags", status=503)
+        if not self.config.settle_private_key:
+            raise PaymentError("relayer key is not configured", status=503)
         from eth_account import Account
         from web3 import Web3
 
-        if not self.config.settle_private_key:
-            raise PaymentError("relayer key is not configured", status=503)
-        if self.config.chain_id == 42220 and not tagged and not self.config.allow_untagged_mainnet:
-            raise PaymentError("mainnet settlement requires ERC-8021 role tags", status=503)
         if tagged and not (self.config.attribution_app_code and self.config.attribution_wallet_code):
             raise PaymentError("tagged settlement requires app and wallet attribution codes", status=503)
 
@@ -460,8 +462,10 @@ class X402Gateway:
                 and settlement.get("confirmed") is True
                 and settlement.get("transferVerified") is True):
             return False
-        if self.config.chain_id == 42220 and not self.config.allow_untagged_mainnet:
-            return settlement.get("attributed") is True
+        if self.config.chain_id == 42220:
+            # tagged relayer: the transaction itself carries the tag; hosted facilitator: confirmed
+            # transfer to our payTo wallet (checked above), which is the documented x402 attribution.
+            return settlement.get("attributed") is True or settlement.get("via") == "celo-facilitator"
         return True
 
     @staticmethod

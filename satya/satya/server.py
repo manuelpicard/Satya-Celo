@@ -145,7 +145,11 @@ def celo_status() -> dict:
             "facilitator": _x402_cfg.network["facilitator"],
             "settlement": _x402_cfg.resolved_settlement_mode,
             "ready": _x402_cfg.can_accept_paid_requests,
-            "requiresAttribution": _x402_cfg.chain_id == 42220 and not _x402_cfg.allow_untagged_mainnet,
+            "requiresAttribution": _x402_cfg.chain_id == 42220 and _x402_cfg.resolved_settlement_mode == "tagged-relayer",
+            "attributionEvidence": (
+                "erc8021-tag" if _x402_cfg.resolved_settlement_mode == "tagged-relayer"
+                else "payto-wallet" if _x402_cfg.chain_id == 42220 else None
+            ),
         }
     return out
 
