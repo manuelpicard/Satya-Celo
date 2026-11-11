@@ -1,5 +1,7 @@
 # Satya
 
+[![CI](https://github.com/manuelpicard/Satya-Celo/actions/workflows/ci.yml/badge.svg)](https://github.com/manuelpicard/Satya-Celo/actions/workflows/ci.yml)
+
 **Verifiable provenance for digital content on Celo — and an honest "undetermined" when nothing can be proven.**
 *(Deutsch: siehe unten.)*
 
